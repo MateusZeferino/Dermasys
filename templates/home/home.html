@@ -1,0 +1,147 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tattoo Artist System</title>
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/Front-end/styles/Styles_home.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        <!-- Logo and System Name -->
+        <div class="logo-container">
+            <i class="fas fa-paint-brush logo-icon"></i>
+            <h1 class="system-name">INK AGENDA</h1>
+        </div>
+        
+        <!-- Navigation Links -->
+        <div class="nav-links">
+            <a href="#" class="nav-link">Editar Perfil</a>
+            <a href="#" class="nav-link">Editar informações <br>do estúdio</a>
+            <a href="#" class="nav-link">Configurações</a>
+        </div>
+        
+        <!-- Mobile Menu Button -->
+        <button class="mobile-menu-button">
+            <i class="fas fa-bars"></i>
+        </button>
+    </nav>
+    
+    <!-- Mobile Menu (Hidden by default) -->
+    <div class="mobile-menu">
+        <a href="#" class="mobile-menu-link">Editar Perfil</a>
+        <a href="#" class="mobile-menu-link">Editar informações <br>do estúdio</a>
+        <a href="#" class="mobile-menu-link">Configurações</a>
+    </div>
+    
+    <!-- Black Line Below Navbar -->
+    <div class="nav-divider"></div>
+    
+    <!-- Main Content -->
+    <main>
+        <div>
+            <h2 class="dashboard-title">Dashboard</h2>
+            
+            <!-- Action Buttons Grid -->
+            <div class="action-grid">
+                <!-- Edit Schedule Button -->
+                <div class="action-card">
+                    <div class="action-icon blue">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <a href=""><h3 class="action-title">Editar agenda</h3></a>
+                    <p class="action-description">Adicione ou Remova horários</p>
+                </div>
+                
+                <!-- Open Appointments Button -->
+                <div class="action-card">
+                    <div class="action-icon green">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <a href=""><h3 class="action-title">Ver agendamentos</h3></a>
+                    <p class="action-description">Visão semanal</p>
+                </div>
+                
+                <!-- Create New Appointment Button -->
+                <div class="action-card">
+                    <div class="action-icon purple">
+                        <i class="fas fa-plus-circle"></i>
+                    </div>
+                    <a href=""><h3 class="action-title">Adicionar agendamento</h3></a>
+                    <p class="action-description">Agende um horário para um cliente</p>
+                </div>
+                
+                <!-- Delete Appointment Button -->
+                <div class="action-card">
+                    <div class="action-icon red">
+                        <i class="fas fa-trash-alt"></i>
+                    </div>
+                    <a href=""><h3 class="action-title">Excluir agendamento</h3></a>
+                    <p class="action-description">Cacele agendamentos</p>
+                </div>
+            </div>
+            
+            <!-- Recent Activity Section -->
+            <div>
+                <div class="activity-header">
+                    <h3 class="activity-title">Atividade recente</h3>
+                    <a href="#" class="view-all">Ver tudo</a>
+                </div>
+                
+                <div>
+                    <div class="activity-item">
+                        <div class="activity-icon blue">
+                            <i class="fas fa-calendar-plus"></i>
+                        </div>
+                        <div class="activity-content">
+                            <p class="activity-text">Novo agendamento realizado</p>
+                            <p class="activity-details">Sarah Johnson - amanhã 14h</p>
+                        </div>
+                        <div class="activity-time">2h atrás</div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div class="activity-icon green">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="activity-content">
+                            <p class="activity-text">Agendamento completo</p>
+                            <p class="activity-details">Michael Brown - Sleeve tattoo</p>
+                        </div>
+                        <div class="activity-time">Ontem</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p class="registration-status">Cadastro: <span>Ativo</span></p>
+            <p class="logged-as">Logado como: <span>Fabricio Herpich</span></p>
+        </div>
+    </footer>
+    
+    <script>
+        // Mobile menu toggle functionality
+        const mobileMenuButton = document.querySelector('.mobile-menu-button');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.style.display = mobileMenu.style.display === 'block' ? 'none' : 'block';
+        });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (event) => {
+            if (!mobileMenu.contains(event.target) && event.target !== mobileMenuButton) {
+                mobileMenu.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
