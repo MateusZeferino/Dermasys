@@ -1,5 +1,11 @@
 from django.shortcuts import render
 
 # Create your views here.
-def home(request):
-    return render('home.html')
+def login(request):
+    return render(request, 'login.html')
+
+def cadastro_cliente(request):
+    return render(request, 'cad_cliente.html')
+
+def cadastro_tatuador(request):
+    return render(request, 'cad_tatuador.html')
