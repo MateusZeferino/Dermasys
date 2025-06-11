@@ -11,6 +11,7 @@
     <title>Tatuagem</title>
     <link rel="stylesheet" href="{% static 'css/stylelogin.css'%}">
     <link href="https://fonts.googleapis.com/css2?family=Karantina:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Special+Gothic+Condensed+One&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
@@ -19,12 +20,10 @@
 
         <div class="login"> <form>
                 <div class="login-forms">
-                    <span class="icon">👤</span>
-                    <input type="text" placeholder="Nome de usuário ou e-mail">
+                    <input type="text" placeholder="Nome de usuário ou e-mail" style="background-image: url('../static/assets/icons/perfil.svg'); background-repeat: no-repeat; background-position: left; padding-left: 30px;">
                 </div>
                 <div class="login-forms">
-                    <span class="icon">🔒</span>
-                    <input type="password" placeholder="Senha">
+                    <input type="password" placeholder="Senha" style="background-image: url('../static/assets/icons/trancar.svg'); background-repeat: no-repeat; background-position: left; padding-left: 30px;">
                 </div>
 
                 <div class="opcoes">
@@ -40,9 +39,9 @@
             <div class="separator"></div>
 
             <p class="sem-conta">Não possui conta?</p>
-            <a href="{% url 'cadastro_cliente'%}"><button class="registro">CADASTRE-SE COMO TATUADOR</button></a>
+            <a href="{% url 'cadastro_tatuador'%}"><button class="registro">CADASTRE-SE COMO TATUADOR</button></a>
             <p></p>
-            <a href="{% url 'cadastro_tatuador'%}"><button class="registro">CADASTRE-SE COMO CLIENTE</button></a>
+            <a href="{% url 'cadastro_cliente'%}"><button class="registro">CADASTRE-SE COMO CLIENTE</button></a>
         </div>
     </div>
 </body>

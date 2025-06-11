@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <title>INK AGENDA - Cadastro</title>
-    <link rel="stylesheet" href="{%static 'static/css/styletat.css'%}">
+    <link rel="stylesheet" href="{%static 'css/stylecli.css'%}">
     <link href="https://fonts.googleapis.com/css2?family=Karantina:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -55,14 +55,14 @@
                             <input type="text" placeholder="Número" class="input-field" id="telefone">
                         </label>
                         
-                        <div class="tipo-usuario">
+                        {% comment %} <div class="tipo-usuario">
                             <label class="radio-label">
                                 <input type="radio" name="user_type" value="tatuador"> Sou tatuador
                             </label>
                             <label class="radio-label">
                                 <input type="radio" name="user_type" value="cliente" checked> Sou cliente
                             </label>
-                        </div>
+                        </div> {% endcomment %}
                         
                         <button type="submit" class="registro">CADASTRAR</button>
 

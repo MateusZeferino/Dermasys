@@ -8,7 +8,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <title>INK AGENDA - Cadastro Tatuador</title>
-    <link rel="stylesheet" href="./styles/styletat.css"> <link href="https://fonts.googleapis.com/css2?family=Karantina:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/styletat.css'%}"> 
+    <link href="https://fonts.googleapis.com/css2?family=Karantina:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="main-wrapper">
@@ -23,7 +24,7 @@
                         <p class="label-text">Seu nome</p>
                         <label class="label-input">
                             <i class="cad-nome-tat"></i>
-                            <input type="text" placeholder="Ex. Mateus Zeferino" class="input-field" id="nome">
+                            <input type="text" placeholder="Ex. Mateus Zeferino" class="input-field" id="nome" required>
                         </label>
                         
                         <p class="label-text">Seu apelido (opcional)</p>
@@ -32,7 +33,7 @@
                             <input type="text" placeholder="Ex. Nickotatto, Manuzzink" class="input-field" id="apelido">
                         </label>
 
-                        <p class="label-text">Estúdio que você tatua</p>
+                        <p class="label-text">Estúdio que você tatua (opcional)</p>
                         <label class="label-input">
                             <i class="cad-estudio-tat"></i>
                             <input type="text" placeholder="Nome do estúdio" class="input-field" id="estudio">
@@ -41,7 +42,7 @@
                         <p class="label-text">Sua senha</p>
                         <label class="label-input">
                             <i class="cad-senha-tat"></i>
-                            <input type="password" placeholder="Sua senha" class="input-field" id="senha">
+                            <input type="password" placeholder="Sua senha" class="input-field" id="senha" required>
                         </label>
                         <div class="password-requirements">
                             <ul>
@@ -56,24 +57,24 @@
 
                         <p class="label-text">Data de nascimento</p>
                         <label class="label-input">
-                            <input type="date" class="input-field" id="data-nascimento">
+                            <input type="date" class="input-field" id="data-nascimento" required>
                             </label>
 
                         
-                        <p class="label-text">Telefone</p>
+                        <p class="label-text">Telefone (opcional)</p>
                         <label class="label-input tel-input">
                             <span class="prefix">+55</span>
                             <input type="text" placeholder="Número" class="input-field" id="telefone">
                         </label>
                         
-                        <div class="user-type-selection">
+                        {% comment %} <div class="user-type-selection">
                             <label class="radio-label">
                                 <input type="radio" name="user_type" value="tatuador" checked> Sou tatuador
                             </label>
                             <label class="radio-label">
                                 <input type="radio" name="user_type" value="cliente"> Sou cliente
                             </label>
-                        </div>
+                        </div> {% endcomment %}
                         
                         <button type="submit" class="registro">CADASTRAR</button>
                     </form>
