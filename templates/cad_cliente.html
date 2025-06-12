@@ -19,26 +19,46 @@
 
             <div class="container">
                 <div class="cadastro-box">
+
+                    {% if messages %}
+                        <div class="feedback-messages">
+                            {% for message in messages %}
+                                <div class="alert {{ message.tags }}">{{ message }}</div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+
                     <h2 class="sub-title">Cadastre-se</h2>
 
-                    <form class="tat-forms">
+                    <form class="tat-forms" method="POST"> 
+                        {% csrf_token %}
                         <p class="label-text">Seu nome</p>
                         <label class="label-input">
                             <i class="cad-nome-tat"></i>
-                            <input type="text" placeholder="Ex. Mateus Zeferino" class="input-field" id="nome">
+                            <input type="text" placeholder="Ex. Mateus Zeferino" class="input-field" id="nome" name="first_name">
                         </label>
                         
+                        <p class="label-text">Seu e-mail</p>
+                        <label class="label-input">
+                            <i class="cad-email-tat"></i>
+                        <input type="email" placeholder="exemplo@email.com" class="input-field" id="email" name="email" required>
+                        </label>
+
+
                         <p class="label-text">Sua senha</p>
                         <label class="label-input">
                             <i class="cad-senha-tat"></i>
-                            <input type="password" placeholder="Sua senha" class="input-field" id="senha">
+                            <input type="password" placeholder="Sua senha" class="input-field" id="senha" name="senha">
                         </label>
                         <div class="senha">
-                            <ul>
-                                <li>Mínimo de 8 letras</li>
-                                <li>Utilize letras e números</li>
-                                <li>Pelo menos um caracter especial</li>
-                                <li>Ao menos uma letra minúscula e uma maiúscula</li>
+                            <ul id="password-validator">
+                                <li id="min-len">Mínimo de 8 letras</li>
+                                <li id="letra">Pelo menos uma letra</li>
+                                <li id="numero">Pelo menos um número</li>
+                                <li id="car-especial">Pelo menos um caracter especial</li>
+                                <li id="minus">Pelo menos uma letra minúscula</li>
+                                <li id="maius">Pelo menos uma letra maiúscula</li>
                             </ul>
                         </div>
 
@@ -46,7 +66,7 @@
 
                         <p class="label-text">Data de nascimento</p>
                         <label class="label-input">
-                            <input type="date" class="input-field" id="data-nascimento">
+                            <input type="date" class="input-field" id="data_nascimento" name="data_nascimento">
                             </label>
                         
                         <p class="label-text">Telefone</p>
@@ -74,5 +94,6 @@
         <div class="right-panel">
         </div>
     </div>
+    <script src="{% static 'js/validador.js' %}"></script>
 </body>
 </html>

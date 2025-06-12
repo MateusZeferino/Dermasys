@@ -18,12 +18,13 @@
         <h1 class="main-title">INK AGENDA</h1>
         <p class="main-slogan">Faça login para acessar o sistema</p>
 
-        <div class="login"> <form>
+        <div class="login"> 
+            <form method="POST"> {% csrf_token %%} 
                 <div class="login-forms">
-                    <input type="text" placeholder="Nome de usuário ou e-mail" style="background-image: url('../static/assets/icons/perfil.svg'); background-repeat: no-repeat; background-position: left; padding-left: 30px;">
+                    <input type="text" placeholder="Seu E-mail cadastrado" style="background-image: url('../static/assets/icons/perfil.svg'); background-repeat: no-repeat; background-position: left; padding-left: 30px;" name="email" required>
                 </div>
                 <div class="login-forms">
-                    <input type="password" placeholder="Senha" style="background-image: url('../static/assets/icons/trancar.svg'); background-repeat: no-repeat; background-position: left; padding-left: 30px;">
+                    <input type="password" placeholder="Senha" style="background-image: url('../static/assets/icons/trancar.svg'); background-repeat: no-repeat; background-position: left; padding-left: 30px;" name="senha" required>
                 </div>
 
                 <div class="opcoes">
@@ -39,9 +40,9 @@
             <div class="separator"></div>
 
             <p class="sem-conta">Não possui conta?</p>
-            <a href="{% url 'cadastro_tatuador'%}"><button class="registro">CADASTRE-SE COMO TATUADOR</button></a>
-            <p></p>
-            <a href="{% url 'cadastro_cliente'%}"><button class="registro">CADASTRE-SE COMO CLIENTE</button></a>
+            {% comment %} <a href="{% url 'cadastro_tatuador'%}"><button class="registro">CADASTRE-SE COMO TATUADOR</button></a>
+            <p></p> {% endcomment %}
+            <a href="{% url 'cadastro_cliente'%}"><button class="registro">CADASTRE-SE</button></a>
         </div>
     </div>
 </body>
