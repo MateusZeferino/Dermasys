@@ -1,0 +1,454 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DermaSys - Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Basic Reset & Body Styles */
+        body {
+            margin: 0;
+            font-family: 'Open Sans', sans-serif; /* Using Open Sans for a cleaner look, can be changed */
+            background-color: #f0f2f5; /* Light grey background */
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Import Google Font - Open Sans */
+        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap');
+
+
+        /* Header/Navbar */
+        .navbar {
+            background-color: #2c3e50; /* Dark blue */
+            color: #fff;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+        }
+
+        .navbar-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-text {
+            font-weight: 700; /* Bold */
+            font-size: 20px;
+            margin-right: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .studio-logo {
+            height: 25px; /* Adjust as needed */
+            margin-right: 10px;
+            /* Placeholder for a logo, if you have one */
+            display: none; /* Hide if no actual logo image */
+        }
+
+        .studio-name {
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+
+        .navbar-right ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .navbar-right li {
+            margin-left: 30px;
+        }
+
+        .navbar-right a {
+            color: #fff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-right a:hover {
+            color: #a0a0a0; /* Lighter on hover */
+        }
+
+        .navbar-right a i {
+            margin-right: 8px;
+        }
+
+        .navbar-right a .fa-caret-down {
+            margin-left: 5px;
+            margin-right: 0;
+        }
+
+        /* Dashboard Content */
+        .dashboard-content {
+            flex-grow: 1;
+            padding: 30px;
+            max-width: 1200px; /* Adjust max-width as needed */
+            margin: 0 auto;
+            width: 100%;
+            box-sizing: border-box; /* Include padding in width */
+        }
+
+        .dashboard-title {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        /* Dashboard Cards */
+        .dashboard-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Adjusted min-width for better fit */
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08); /* More pronounced shadow */
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 160px; /* Ensures consistent height */
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+
+        .card:hover {
+            transform: translateY(-5px); /* Lift effect on hover */
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        .card-icon i {
+            font-size: 30px;
+            color: #fff;
+        }
+
+        /* Card Specific Colors - Adjusted to match prototype more closely */
+        .edit-agenda .card-icon { background-color: #007bff; /* Blue */ }
+        .add-appointment .card-icon { background-color: #28a745; /* Green */ }
+        .cancel-appointment .card-icon { background-color: #dc3545; /* Red */ }
+        .access-agenda .card-icon { background-color: #6c757d; /* Grey */ }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+            text-transform: uppercase;
+        }
+
+        .card-description {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        /* Recent Activity Section */
+        .section-title {
+            font-size: 20px;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .activity-list {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            overflow: hidden; /* For rounded corners */
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+            transition: background-color 0.2s ease;
+        }
+
+        .activity-item:hover {
+            background-color: #f8f8f8;
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin-right: 15px;
+            background-color: #e9ecef; /* Light grey for calendar icon */
+            color: #6c757d; /* Grey for icon */
+            font-size: 18px; /* Slightly larger icon */
+        }
+
+        .activity-item.cancelled .activity-icon {
+            background-color: #dc3545; /* Red for cancelled icon background */
+            color: #fff; /* White for cancelled icon */
+        }
+
+        .activity-details {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .activity-type {
+            font-weight: 600;
+            font-size: 15px;
+            margin-bottom: 3px;
+        }
+
+        .activity-description {
+            font-size: 13px;
+            color: #777;
+        }
+
+        .activity-time {
+            font-size: 13px;
+            color: #999;
+            white-space: nowrap; /* Prevents wrapping for "X dias atrás" */
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #2c3e50; /* Dark blue, same as header */
+            color: #fff;
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            margin-top: auto; /* Pushes footer to the bottom */
+        }
+
+        .footer-left p,
+        .footer-right p {
+            margin: 0;
+            padding: 3px 0;
+        }
+
+        .status-active {
+            color: #28a745; /* Green */
+            font-weight: bold;
+        }
+
+        /* Basic Responsiveness */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 15px 20px;
+            }
+
+            .navbar-left {
+                margin-bottom: 15px;
+            }
+
+            .navbar-right ul {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .navbar-right li {
+                margin-left: 0;
+                margin-bottom: 10px;
+                width: 100%;
+            }
+
+            .dashboard-content {
+                padding: 20px;
+            }
+
+            .dashboard-cards {
+                grid-template-columns: 1fr; /* Stack cards on small screens */
+            }
+
+            .footer {
+                flex-direction: column;
+                text-align: center;
+                padding: 15px 20px;
+            }
+
+            .footer-left, .footer-right {
+                margin-bottom: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-text {
+                font-size: 18px;
+            }
+
+            .studio-name {
+                font-size: 12px;
+            }
+
+            .dashboard-title {
+                font-size: 24px;
+            }
+
+            .section-title {
+                font-size: 18px;
+            }
+
+            .activity-item {
+                flex-wrap: wrap; /* Allow wrapping on very small screens */
+            }
+
+            .activity-details {
+                margin-right: 10px; /* Add some space */
+            }
+
+            .activity-time {
+                flex-basis: 100%; /* Push time to next line if needed */
+                text-align: right;
+                margin-top: 5px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <div class="navbar-left">
+            <span class="logo-text">DermaSys</span>
+
+        </div>
+        <nav class="navbar-right">
+            <ul>
+                <li><a href="#"><i class="fas fa-info-circle"></i> INFORMAÇÕES DO ESTÚDIO <i class="fas fa-caret-down"></i></a></li>
+                <li><a href="#"><i class="fas fa-user-circle"></i> EDITAR PERFIL <i class="fas fa-caret-down"></i></a></li>
+                <li><a href="#"><i class="fas fa-cog"></i> CONFIGURAÇÕES <i class="fas fa-caret-down"></i></a></li>
+                 <li>
+                    <form action="{% url 'logout' %}" method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" style="background: none; border: none; color: #fff; font-size: 14px; cursor: pointer;">
+                            <i class="fas fa-sign-out-alt"></i> SAIR
+                        </button>
+                    </form>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="dashboard-content">
+        <h1 class="dashboard-title">Dashboard</h1>
+    
+        <a href="{% url 'cliente_create' %}" class="btn btn-success mb-4" style="font-weight: 600;">
+            <i class="fas fa-user-plus"></i> Cadastrar Cliente
+        </a>
+
+        <a href="{% url 'cliente_list' %}" class="btn btn-primary mb-3 ms-2" style="font-weight: 600;">
+            <i class="fas fa-users"></i> Meus Clientes
+        </a>
+
+        <section class="dashboard-cards">
+            <div class="card edit-agenda">
+                <div class="card-icon"><i class="fas fa-clipboard-list"></i></div>
+                <h2 class="card-title">EDITAR MINHA AGENDA</h2>
+                <p class="card-description">Edite sua agenda conforme sua disponibilidade.</p>
+            </div>
+            <div class="card add-appointment">
+                <div class="card-icon"><i class="fas fa-plus-circle"></i></div>
+                <h2 class="card-title">ADICIONAR AGENDAMENTO</h2>
+                <p class="card-description">Agende um horário para seus clientes.</p>
+            </div>
+            <div class="card cancel-appointment">
+                <div class="card-icon"><i class="fas fa-trash-alt"></i></div>
+                <h2 class="card-title">CANCELAR AGENDAMENTO</h2>
+                <p class="card-description">Cancele um horário agendado.</p>
+            </div>
+            <div class="card access-agenda">
+                <div class="card-icon"><i class="fas fa-calendar-alt"></i></div>
+                <h2 class="card-title">ACESSAR AGENDA</h2>
+                <p class="card-description">Visualize todos os seus agendamentos até o momento</p>
+            </div>
+        </section>
+
+        <section class="recent-activity">
+            <h2 class="section-title">ATIVIDADE RECENTE</h2>
+
+            <div class="activity-list">
+                <div class="activity-item">
+                    <div class="activity-icon"><i class="far fa-calendar-alt"></i></div>
+                    <div class="activity-details">
+                        <span class="activity-type">NOVO AGENDAMENTO</span>
+                        <span class="activity-description">Letícia Martins | 10 - Terça feira - 14h:30</span>
+                    </div>
+                    <span class="activity-time">1m atrás</span>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-icon"><i class="far fa-calendar-alt"></i></div>
+                    <div class="activity-details">
+                        <span class="activity-type">NOVO AGENDAMENTO</span>
+                        <span class="activity-description">Fabrício Herspich | 4 - Quarta feira - 20h:30</span>
+                    </div>
+                    <span class="activity-time">Ontem</span>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-icon"><i class="far fa-calendar-alt"></i></div>
+                    <div class="activity-details">
+                        <span class="activity-type">NOVO AGENDAMENTO</span>
+                        <span class="activity-description">Vitor Luigi | 21 - Sábado - 15h</span>
+                    </div>
+                    <span class="activity-time">3 dias atrás</span>
+                </div>
+                <div class="activity-item cancelled">
+                    <div class="activity-icon"><i class="fas fa-times-circle"></i></div>
+                    <div class="activity-details">
+                        <span class="activity-type">AGENDAMENTO CANCELADO</span>
+                        <span class="activity-description">Iuri Vieira | 19 - Quinta - 13h:30</span>
+                    </div>
+                    <span class="activity-time">3 dias atrás</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-left">
+            <p>Cadastro: <span class="status-active"></span></p>
+            <p>Logado como:<strong>{{user.get_full_name}}</strong></p>
+        </div>
+        <div class="footer-right">
+            <p>DermaSys</p>
+            <p>all rights reserved</p>
+        </div>
+    </footer>
+</body>
+</html>

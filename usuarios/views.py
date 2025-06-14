@@ -25,7 +25,7 @@ def cadastrar_cliente(request):
         except Exception as e:
             messages.error(request, f"Erro ao cadastrar usuário: {e}")
 
-    return render(request, "cad_cliente.html")
+    return render(request, "cadastro.html")
 
 def login(request):
     if request.method == 'GET':
@@ -38,6 +38,6 @@ def login(request):
     
     if user is not None:
         auth_login(request, user)
-        return render(request, 'pag_inicial.html') # coloque o nome da url que você quiser redirecionar depois do login
+        return redirect('dashboard') # coloque o nome da url que você quiser redirecionar depois do login
     else:
         messages.error(request, "E-mail ou senha inválidos.")

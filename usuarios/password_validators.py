@@ -32,6 +32,5 @@ class SenhaForteValidator:
 
     def get_help_text(self):
         return (
-            "Sua senha precisa ter no mínimo 8 caracteres, incluindo uma letra maiúscula, "
-            "uma letra minúscula, um número e um caracter especial."
+            "Sua não atende todos os requisitos"
         )
