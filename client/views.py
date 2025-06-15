@@ -29,9 +29,15 @@ def cliente_list(request):
     return render(request, 'clientes.html', {'clientes': clientes})
 
 @login_required
-def cliente_delete(request, pk):
+def cliente_inativar(request, pk):
     cliente = get_object_or_404(Cliente, pk=pk, usuario=request.user)
-    if request.method == "POST":
-        cliente.delete()
-        return redirect('cliente_list')
-    return render(request, 'confirma_exclusao.html', {'cliente': cliente})
+    cliente.ativo = False
+    cliente.save()
+    return redirect('cliente_list')
+
+@login_required
+def cliente_ativar(request, pk):
+    cliente = get_object_or_404(Cliente, pk=pk, usuario=request.user)
+    cliente.ativo = True
+    cliente.save()
+    return redirect('cliente_list')

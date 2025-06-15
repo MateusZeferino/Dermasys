@@ -1,0 +1,278 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Acessar Agendamentos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Ícones do FontAwesome para lupa -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Fonte estilo "impacto" para título (opcional, pode customizar) -->
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #f8f9fa;
+            font-family: 'Open Sans', Arial, sans-serif;
+            height: 100vh;
+            overflow: hidden; /* Não deixa rolar a tela toda */
+        }
+        .agenda-header {
+            background: #253656;
+            color: #fff;
+            padding: 30px 32px 24px 32px;
+            border-bottom: 2px solid #e1e1e1;
+        }
+        .agenda-header .top-row {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            margin-bottom: 10px;
+        }
+        .agenda-header .top-row a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+            margin-right: 22px;
+            transition: color 0.2s;
+        }
+        .agenda-header .top-row a:hover {
+            color: #a0a0a0;
+        }
+        .agenda-title {
+            font-family: 'Oswald', Arial, sans-serif;
+            font-size: 2.2rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-align: center;
+            margin: 0;
+            margin-bottom: 4px;
+        }
+        .agenda-subtitle {
+            text-align: center;
+            font-size: 1rem;
+            margin: 0 0 22px 0;
+            color: #dde2ef;
+            font-weight: 400;
+        }
+        .agenda-header .user-info {
+            margin: 0 0 16px 0;
+            font-size: 1rem;
+        }
+        .agenda-header .user-info strong {
+            font-weight: 700;
+        }
+        /* Filtros */
+        .agenda-filtros {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            justify-content: flex-start;
+            margin-bottom: 0;
+        }
+        .agenda-filtros select,
+        .agenda-filtros input[type="date"],
+        .agenda-filtros input[type="text"] {
+            border: none;
+            border-radius: 8px;
+            background: #e0e0e0;
+            padding: 9px 16px 9px 38px;
+            font-size: 1rem;
+            color: #333;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .agenda-filtros input[type="date"] {
+            padding-left: 16px;
+            width: 140px;
+        }
+        .agenda-filtros select {
+            appearance: none;
+            background: #e0e0e0;
+            font-size: 1rem;
+            min-width: 120px;
+            padding-left: 12px;
+        }
+        .agenda-filtros .search-group {
+            position: relative;
+            flex: 1;
+        }
+        .agenda-filtros .search-group i {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #888;
+            font-size: 1.1rem;
+        }
+        .agenda-filtros .search-group select {
+            width: 100%;
+            padding-left: 38px;
+        }
+        .agenda-filtros button, .agenda-filtros .btn-periodo {
+            border: none;
+            background: #d1d1d1;
+            padding: 9px 22px;
+            border-radius: 8px;
+            font-size: 1rem;
+            color: #333;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .agenda-filtros button:hover,
+        .agenda-filtros .btn-periodo.active {
+            background: #b1b1b1;
+        }
+        .agenda-filtros .btn-periodo {
+            min-width: 110px;
+        }
+        /* Lista de agendamentos com scroll */
+        .agenda-lista-container {
+            background: #fff;
+            height: calc(100vh - 220px); /* Ajuste conforme o header */
+            overflow-y: auto;
+            border-top: 1px solid #e1e1e1;
+            padding: 0 32px;
+            width: 100vw;
+            box-sizing: border-box;
+        }
+
+        .agenda-lista-container table {
+            width: 100%;
+            min-width: 600px; /* Ajuste ou remova se quiser responsivo */
+            border-collapse: collapse;
+            table-layout: fixed;
+        }   
+
+        .agenda-lista-container th, 
+.agenda-lista-container td {
+    padding: 10px 16px;
+    text-align: left;
+    border-bottom: 1px solid #e1e1e1;
+    word-break: break-word;
+}
+
+.agenda-lista-container th:nth-child(1),
+.agenda-lista-container td:nth-child(1) {
+    width: 35%;
+}
+
+.agenda-lista-container th:nth-child(2),
+.agenda-lista-container td:nth-child(2) {
+    width: 15%;
+}
+
+.agenda-lista-container th:nth-child(3),
+.agenda-lista-container td:nth-child(3) {
+    width: 15%;
+}
+
+.agenda-lista-container th:nth-child(4),
+.agenda-lista-container td:nth-child(4) {
+    width: 15%;
+}
+
+
+        .trow th{
+            margin-right: 60px;
+        }
+        /* Responsividade básica */
+        @media (max-width: 700px) {
+            .agenda-header, .agenda-lista-container {
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+            .agenda-title {
+                font-size: 1.3rem;
+            }
+            .agenda-header .top-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .agenda-filtros {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="agenda-header">
+        <div class="top-row">
+            <a href="{% url 'dashboard' %}">&lt; Voltar</a>
+            <div style="flex: 1;"></div>
+        </div>
+        <h1 class="agenda-title">ACESSAR AGENDAMENTOS</h1>
+        <div class="agenda-subtitle">
+            Confira todos os agendamentos pendentes,<br>
+            finalizados ou cancelados
+        </div>
+        <div class="user-info">
+            Logado como: <strong>{{ user.get_full_name|default:user.username }}</strong>
+        </div>
+        {% if ver_todos %}
+            <div style="padding: 12px 0 18px 0;">
+                <button class="btn btn-outline-primary" onclick="window.location.href=window.location.pathname">Exibir filtros</button>
+            </div>
+        {% endif %}
+        <form method="get" class="agenda-filtros" id="filtros-form" style="display: flex; gap: 12px; align-items: end;">
+            <div class="search-group" style="flex:2; min-width: 180px;">
+                <i class="fas fa-search"></i>
+                <select name="cliente" class="form-select">
+                    <option value="todos">Busca por cliente ▼</option>
+                    {% for cliente in clientes %}
+                        <option value="{{ cliente.id }}"
+                        {% if filtros.cliente_id == cliente.id|stringformat:"s" %}selected{% endif %}>
+                            {{ cliente.nome }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <input type="date" name="data" class="form-control" placeholder="Busca por data" value="{{ filtros.data }}">
+            <button type="submit" class="btn btn-primary" style="min-width:120px;">Filtrar</button>
+            <button type="button" class="btn btn-secondary" onclick="window.location.href=window.location.pathname">
+                    Ver todos os agendamentos
+            </button>
+
+        </form>
+
+    </div>
+    <div class="agenda-lista-container">
+        <!-- Aqui vai sua lista de agendamentos -->
+        {% if agendamentos %}
+            <table class="table table-striped">
+                <thead>
+                    <tr class="trow">
+                        <th>Cliente</th>
+                        <th>Data</th>
+                        <th>Horário</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for ag in agendamentos %}
+                    <tr>
+                        <td>{{ ag.cliente.nome }}</td>
+                        <td>{{ ag.dia|date:"d/m/Y" }}</td>
+                        <td>{{ ag.horario|time:"H:i" }}</td>
+                        <td>
+                            {% if ag.status %}
+                                <span class="badge bg-success">Confirmado</span>
+                            {% else %}
+                                <span class="badge bg-danger">Cancelado</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <div class="text-center text-muted py-5">Nenhum agendamento encontrado para os filtros selecionados.</div>
+        {% endif %}
+    </div>
+    
+</body>
+</html>

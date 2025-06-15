@@ -23,7 +23,7 @@
                 </thead>
                 <tbody>
                     {% for cliente in clientes %}
-                    <tr>
+                    <tr {% if not cliente.ativo %}class="table-secondary"{% endif %}>
                         <td>{{ cliente.nome }}</td>
                         <td>{{ cliente.email|default:"–" }}</td>
                         <td>{{ cliente.telefone|default:"–" }}</td>
@@ -36,10 +36,27 @@
                         </td>
                         <td>{{ cliente.observacoes|default:"–" }}</td>
                         <td>
-                            <a href="{% url 'cliente_delete' cliente.pk %}" class="btn btn-sm btn-outline-danger"
-                            onclick="return confirm('Tem certeza que deseja excluir este cliente?');">
-                                <i class="fas fa-trash-alt"></i> Excluir
-                            </a>
+
+                        </td>
+                        <td>
+                            {% if cliente.ativo %}
+                                <span class="badge bg-success">Ativo</span>
+                            {% else %}
+                                <span class="badge bg-secondary">Inativo</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if cliente.ativo %}
+                                <a href="{% url 'cliente_inativar' cliente.pk %}" class="btn btn-sm btn-outline-warning"
+                                onclick="return confirm('Tem certeza que deseja inativar este cliente?');">
+                                    <i class="fas fa-user-slash"></i> Inativar
+                                </a>
+                            {% else %}
+                                <a href="{% url 'cliente_ativar' cliente.pk %}" class="btn btn-sm btn-outline-warning"
+                                onclick="return confirm('Tem certeza que deseja reativar este cliente?');">
+                                    <i class="fas fa-user-slash"></i> Reativar
+                                </a>
+                            {% endif %}
                         </td>
                     </tr>
                     {% endfor %}

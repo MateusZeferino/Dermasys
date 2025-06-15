@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'core',
     'usuarios',
     'home',
-    'client'
+    'client',
+    'agenda'
 ]
 
 MIDDLEWARE = [

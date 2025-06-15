@@ -12,6 +12,7 @@ class Cliente(models.Model):
     telefone = models.CharField(max_length=20, blank=True, null=True)
     data_nascimento = models.DateField(blank=True, null=True)
     observacoes = models.TextField(blank=True, null=True)
+    ativo = models.BooleanField(default=True)
 
     criado_em = models.DateTimeField(auto_now_add=True)
     atualizado_em = models.DateTimeField(auto_now=True)

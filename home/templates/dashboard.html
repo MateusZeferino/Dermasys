@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DermaSys - Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/modal.css' %}">
     <style>
         /* Basic Reset & Body Styles */
         body {
@@ -383,20 +384,50 @@
                 <h2 class="card-title">EDITAR MINHA AGENDA</h2>
                 <p class="card-description">Edite sua agenda conforme sua disponibilidade.</p>
             </div>
+
             <div class="card add-appointment">
-                <div class="card-icon"><i class="fas fa-plus-circle"></i></div>
-                <h2 class="card-title">ADICIONAR AGENDAMENTO</h2>
-                <p class="card-description">Agende um horário para seus clientes.</p>
+                <a href="{% url 'agendamento_create' %}" style="text-decoration: none; color: inherit;">
+                    <div class="card-icon"><i class="fas fa-plus-circle"></i></div>
+                    <h2 class="card-title">ADICIONAR AGENDAMENTO</h2>
+                    <p class="card-description">Agende um horário para seus clientes.</p>
+                </a>
             </div>
-            <div class="card cancel-appointment">
+
+            <div class="card cancel-appointment" onclick="abrirModalCancelar()">
                 <div class="card-icon"><i class="fas fa-trash-alt"></i></div>
                 <h2 class="card-title">CANCELAR AGENDAMENTO</h2>
                 <p class="card-description">Cancele um horário agendado.</p>
             </div>
+
+            <!-- Modal de cancelamento -->
+            <div id="modal-cancelar" class="modal-backdrop" style="display:none;">
+            <div class="modal-window" onclick="event.stopPropagation();">
+                <button type="button" class="modal-fechar" onclick="fecharModal()">&times;</button>
+                <h3>Cancelar Agendamento</h3>
+                <form method="post" id="form-cancelar" action="{% url 'cancelar_agendamento' %}">
+                {% csrf_token %}
+                <label for="agendamento-select">Escolha o agendamento:</label>
+                <select name="agendamento_id" id="agendamento-select" required>
+                    <option value="" disabled selected>Selecione...</option>
+                    {% for ag in agendamentos_confirmados %}
+                    <option value="{{ ag.id }}">
+                        {{ ag.cliente.nome }} — {{ ag.dia|date:"d/m/Y" }} {{ ag.horario|time:"H:i" }}
+                    </option>
+                    {% endfor %}
+                </select>
+                <div class="modal-btns">
+                    <button type="button" onclick="fecharModal()">Fechar</button>
+                    <button type="submit" class="btn-cancelar">Cancelar Agendamento</button>
+                </div>
+                </form>
+            </div>
+            </div>
             <div class="card access-agenda">
-                <div class="card-icon"><i class="fas fa-calendar-alt"></i></div>
-                <h2 class="card-title">ACESSAR AGENDA</h2>
-                <p class="card-description">Visualize todos os seus agendamentos até o momento</p>
+                <a href="{% url 'agendamento_list' %}" style="text-decoration: none; color: inherit;">
+                    <div class="card-icon"><i class="fas fa-calendar-alt"></i></div>
+                    <h2 class="card-title">ACESSAR AGENDA</h2>
+                    <p class="card-description">Confira todos os seus agendamentos até o momento.</p>
+                </a>
             </div>
         </section>
 
@@ -450,5 +481,6 @@
             <p>all rights reserved</p>
         </div>
     </footer>
+     <script src="{% static 'js/cancel.js' %}"></script>
 </body>
 </html>

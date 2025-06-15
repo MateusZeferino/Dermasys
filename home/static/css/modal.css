@@ -1,0 +1,77 @@
+.modal-backdrop {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(30, 30, 40, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-window {
+  background: #fff;
+  border-radius: 16px;
+  padding: 36px 24px 24px 24px;
+  box-shadow: 0 4px 32px rgba(0,0,0,0.15);
+  min-width: 320px;
+  max-width: 95vw;
+  text-align: center;
+  position: relative;
+}
+
+.modal-window h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 1.4rem;
+}
+
+.modal-window select {
+  width: 100%;
+  margin: 18px 0;
+  padding: 8px 12px;
+  font-size: 1rem;
+}
+
+.modal-btns {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 12px;
+}
+
+.modal-btns button, .btn-cancelar {
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-size: 1rem;
+  border: none;
+  background: #253656;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-cancelar {
+  background: #dc3545;
+}
+.modal-btns button:hover, .btn-cancelar:hover {
+  background: #3d4e7a;
+}
+.btn-cancelar:hover {
+  background: #bb2d3b;
+}
+
+.modal-fechar {
+  position: absolute;
+  top: 10px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  color: #555;
+  cursor: pointer;
+  z-index: 2;
+  transition: color 0.2s;
+}
+.modal-fechar:hover {
+  color: #bb2d3b;
+}
