@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <title>INK AGENDA - Cadastro</title>
-    <link rel="stylesheet" href="{%static 'css/stylecli.css'%}">
+    <link rel="stylesheet" href="{%static 'css/stylecli.css'%}?=v1">
     <link href="https://fonts.googleapis.com/css2?family=Karantina:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -19,15 +19,6 @@
 
             <div class="container">
                 <div class="cadastro-box">
-
-                    {% if messages %}
-                        <div class="feedback-messages">
-                            {% for message in messages %}
-                                <div class="alert {{ message.tags }}">{{ message }}</div>
-                            {% endfor %}
-                        </div>
-                    {% endif %}
-
 
                     <h2 class="sub-title">Cadastre-se</h2>
 
@@ -51,7 +42,16 @@
                             <i class="cad-senha-tat"></i>
                             <input type="password" placeholder="Sua senha" class="input-field" id="senha" name="senha">
                         </label>
+
+
                         <div class="senha">
+                            {% if messages %}
+                            <div class="feedback-messages">
+                                {% for message in messages %}
+                                    <div class="alert {{ message.tags }}">{{ message }}</div>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
                             <ul id="password-validator">
                                 <li id="min-len">Mínimo de 8 letras</li>
                                 <li id="letra">Pelo menos uma letra</li>

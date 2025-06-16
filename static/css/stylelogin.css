@@ -11,7 +11,7 @@ body {
     font-family: 'Lato', sans-serif; /* Fallback caso 'Karantina' não carregue para o corpo */
     display: flex;
     flex-direction: column; /* Para empilhar o título/slogan e a caixa de login */
-    justify-content: center; /* Centraliza todo o conteúdo verticalmente */
+    justify-content:top; 
     align-items: center; /* Centraliza todo o conteúdo horizontalmente */
     min-height: 100vh;
     width: 100vw;
@@ -20,7 +20,7 @@ body {
     background-repeat: no-repeat;
     background-size:cover;
     color: var(--cor-branca);
-    overflow: hidden; /* Para evitar barras de rolagem desnecessárias */
+    /* overflow-x: hidden;  */
 }
 
 .container {
@@ -28,28 +28,31 @@ body {
     flex-direction: column; /* Organiza os itens verticalmente: título, slogan, caixa de login */
     align-items: center; /* Centraliza os itens horizontalmente dentro do container */
     width: 100%; /* Ocupa a largura total para permitir centralização dos filhos */
-    /* height: 100%; Não é necessário aqui, pois o body já define a altura mínima e centraliza */
+    min-height: 100vh; 
+    /* justify-content: center; */
 }
 
 /* Estilos para o título principal INK AGENDA */
 .main-title { /* Nova classe conforme HTML modificado */
     font-family: 'Karantina', cursive; /* Usando a fonte Karantina */
-    font-size: 5em; /* Tamanho maior para o título */
+    font-size: 4.8em; /* Tamanho maior para o título */
     margin-bottom: 5px; /* Margem entre o título e o slogan */
+    margin-top:0;
+    padding-top:0;
     color: var(--cor-branca);
     text-transform: uppercase;
     letter-spacing: 4px; /* Mais espaçamento entre as letras */
     text-align: center;
-    /* Removidas propriedades inválidas como width, height, top, left, border-width */
 }
 
 /* Estilos para o slogan "Faça login para acessar o sistema" */
 .main-slogan { /* Nova classe conforme HTML modificado */
     font-family: 'Lato', sans-serif;
     font-size: 1.6em;
-    margin-bottom: 50px; /* Espaço entre o slogan e a caixa de login */
+    margin-bottom: 10px; /* Espaço entre o slogan e a caixa de login */
     color: var(--cor-branca);
     text-align: center;
+    margin-top: 0;
 }
 
 /* Estilos para a caixa de login principal (div com a classe 'login') */

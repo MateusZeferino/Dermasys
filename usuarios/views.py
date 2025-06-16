@@ -2,6 +2,9 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from usuarios.models import ModelUsuario
 from django.contrib.auth import authenticate, login as auth_login
+from usuarios.password_validators import SenhaForteValidator
+from django.core.exceptions import ValidationError
+
 
 def cadastrar_cliente(request):
     if request.method == "POST":
@@ -12,6 +15,7 @@ def cadastrar_cliente(request):
         telefone = request.POST.get('telefone')
 
         try:
+            SenhaForteValidator().validate(senha)
             user = ModelUsuario.objects.create_user(
                 email=email,
                 password=senha,
@@ -22,6 +26,9 @@ def cadastrar_cliente(request):
             )
             messages.success(request, "Usuário cadastrado com sucesso!")
             return redirect("login")
+        except ValidationError as e:
+            for erro in e:
+                messages.error(request, erro)
         except Exception as e:
             messages.error(request, f"Erro ao cadastrar usuário: {e}")
 
