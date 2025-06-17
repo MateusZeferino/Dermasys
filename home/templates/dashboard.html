@@ -375,47 +375,48 @@
 
 
             <!-- Modal de editar agendamento -->
-            <div id="modal-editar" class="modal-backdrop" style="display:none;">
-            <div class="modal-window" onclick="event.stopPropagation();">
-                <button type="button" class="modal-fechar" onclick="fecharModalEditar()">&times;</button>
-                <h3>Editar Agendamento</h3>
-                <form method="post" id="form-editar" action="{% url 'editar_agendamento' %}">
-                {% csrf_token %}
-                <!-- Seleciona agendamento -->
-                <label for="agendamento-editar-select">Escolha o agendamento:</label>
-                <select name="agendamento_id" id="agendamento-editar-select" required>
-                    <option value="" disabled selected>Selecione...</option>
-                    {% for ag in agendamentos_confirmados %}
-                    <option value="{{ ag.id }}">
-                        {{ ag.cliente.nome }} — {{ ag.dia|date:"d/m/Y" }} {{ ag.horario|time:"H:i" }}
-                    </option>
-                    {% endfor %}
-                </select>
+           <div id="modal-editar" class="modal-backdrop" style="display:none;">
+                <div class="modal-window" onclick="event.stopPropagation();">
+                    <button type="button" class="modal-fechar" onclick="fecharModalEditar()">&times;</button>
+                    <h3>Editar Agendamento</h3>
+                    <form method="post" id="form-editar" action="{% url 'editar_agendamento' %}">
+                        {% csrf_token %}
+                        <!-- Seleciona o agendamento -->
+                        <label for="agendamento-editar-select" style="margin-top:8px;">Escolha o agendamento:</label>
+                        <select name="agendamento_id" id="agendamento-editar-select" required>
+                            <option value="" disabled selected>Selecione...</option>
+                            {% for ag in agendamentos_confirmados %}
+                            <option value="{{ ag.id }}">
+                                {{ ag.cliente.nome }} — {{ ag.dia|date:"d/m/Y" }} {{ ag.horario|time:"H:i" }}
+                            </option>
+                            {% endfor %}
+                        </select>
 
-                <!-- Novo cliente -->
-                <label for="novo-cliente">Cliente:</label>
-                <select name="cliente_id" id="novo-cliente" required>
-                    <option value="" disabled selected>Selecione o cliente...</option>
-                    {% for cliente in clientes %}
-                    <option value="{{ cliente.id }}">{{ cliente.nome }}</option>
-                    {% endfor %}
-                </select>
+                        <!-- Campos de edição ficam logo abaixo -->
+                        <div id="campos-edicao" style="margin-top:18px;">
+                            <label for="novo-cliente">Cliente:</label>
+                            <select name="cliente_id" id="novo-cliente" required>
+                                <option value="" disabled selected>Selecione o cliente...</option>
+                                {% for cliente in clientes %}
+                                <option value="{{ cliente.id }}">{{ cliente.nome }}</option>
+                                {% endfor %}
+                            </select>
 
-                <!-- Nova data -->
-                <label for="nova-data">Data:</label>
-                <input type="date" name="nova_data" id="nova-data" required>
+                            <label for="nova-data" style="margin-top:10px;">Data:</label>
+                            <input type="date" name="nova_data" id="nova-data" required>
 
-                <!-- Novo horário -->
-                <label for="novo-horario">Horário:</label>
-                <input type="time" name="novo_horario" id="novo-horario" required>
+                            <label for="novo-horario" style="margin-top:10px;">Horário:</label>
+                            <input type="time" name="novo_horario" id="novo-horario" required>
+                        </div>
 
-                <div class="modal-btns" style="margin-top:18px;">
-                    <button type="button" onclick="fecharModalEditar()">Fechar</button>
-                    <button type="submit" class="btn-editar">Salvar Alterações</button>
+                        <div class="modal-btns" style="margin-top:18px;">
+                            <button type="button" onclick="fecharModalEditar()">Fechar</button>
+                            <button type="submit" class="btn-editar">Salvar Alterações</button>
+                        </div>
+                    </form>
                 </div>
-                </form>
             </div>
-            </div>
+
             <div class="card edit-agenda" onclick="abrirModalEditar()">
                 <div class="card-icon"><i class="fas fa-clipboard-list"></i></div>
                 <h2 class="card-title">EDITAR MINHA AGENDA</h2>

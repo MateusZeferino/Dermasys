@@ -69,12 +69,32 @@ def editar_agendamento(request):
         nova_data = request.POST.get('nova_data')
         novo_horario = request.POST.get('novo_horario')
 
-        agendamento = get_object_or_404(Agendamento, pk=agendamento_id, usuario=request.user, status=True)
-        cliente = get_object_or_404(Cliente, pk=cliente_id, usuario=request.user, ativo=True)
+        # Busca o agendamento do usuário logado
+        agendamento = get_object_or_404(
+            Agendamento,
+            pk=agendamento_id,
+            usuario=request.user,
+            status=True  # Só permite editar agendamento ativo
+        )
+        # Busca o cliente escolhido e garante que pertence ao usuário
+        cliente = get_object_or_404(
+            Cliente,
+            pk=cliente_id,
+            usuario=request.user,
+            ativo=True
+        )
 
+        # Atualiza os campos
         agendamento.cliente = cliente
         agendamento.dia = nova_data
         agendamento.horario = novo_horario
         agendamento.save()
 
+        # (Opcional) Mensagem de sucesso com Django messages
+        # from django.contrib import messages
+        # messages.success(request, "Agendamento editado com sucesso!")
+
+        return redirect('dashboard')  # Ou onde quiser redirecionar
+
+    # Caso GET (não é pra acessar por GET)
     return redirect('dashboard')
