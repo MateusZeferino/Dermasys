@@ -75,3 +75,10 @@
 .modal-fechar:hover {
   color: #bb2d3b;
 }
+
+.btn-editar {
+  background: #1c6f35;
+}
+.btn-editar:hover {
+  background: #17622c;
+}

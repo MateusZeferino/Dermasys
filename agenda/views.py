@@ -61,3 +61,20 @@ def cancelar_agendamento(request):
     return redirect('dashboard')
 
 
+@login_required
+def editar_agendamento(request):
+    if request.method == 'POST':
+        agendamento_id = request.POST.get('agendamento_id')
+        cliente_id = request.POST.get('cliente_id')
+        nova_data = request.POST.get('nova_data')
+        novo_horario = request.POST.get('novo_horario')
+
+        agendamento = get_object_or_404(Agendamento, pk=agendamento_id, usuario=request.user, status=True)
+        cliente = get_object_or_404(Cliente, pk=cliente_id, usuario=request.user, ativo=True)
+
+        agendamento.cliente = cliente
+        agendamento.dia = nova_data
+        agendamento.horario = novo_horario
+        agendamento.save()
+
+    return redirect('dashboard')

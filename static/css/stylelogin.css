@@ -29,14 +29,14 @@ body {
     align-items: center; /* Centraliza os itens horizontalmente dentro do container */
     width: 100%; /* Ocupa a largura total para permitir centralização dos filhos */
     min-height: 100vh; 
-    /* justify-content: center; */
+    justify-content: center;
 }
 
 /* Estilos para o título principal INK AGENDA */
 .main-title { /* Nova classe conforme HTML modificado */
     font-family: 'Karantina', cursive; /* Usando a fonte Karantina */
     font-size: 4.8em; /* Tamanho maior para o título */
-    margin-bottom: 5px; /* Margem entre o título e o slogan */
+    margin-bottom: 20px; /* Margem entre o título e o slogan */
     margin-top:0;
     padding-top:0;
     color: var(--cor-branca);
@@ -49,7 +49,7 @@ body {
 .main-slogan { /* Nova classe conforme HTML modificado */
     font-family: 'Lato', sans-serif;
     font-size: 1.6em;
-    margin-bottom: 10px; /* Espaço entre o slogan e a caixa de login */
+    margin-bottom: 15px; /* Espaço entre o slogan e a caixa de login */
     color: var(--cor-branca);
     text-align: center;
     margin-top: 0;

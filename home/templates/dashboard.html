@@ -7,6 +7,7 @@
     <title>DermaSys - Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="{% static 'css/modal.css' %}">
+    <link rel="stylesheet" href="{% static 'css/client_button.css' %}?=v1">
     <style>
         /* Basic Reset & Body Styles */
         body {
@@ -369,17 +370,53 @@
 
     <main class="dashboard-content">
         <h1 class="dashboard-title">Dashboard</h1>
-    
-        <a href="{% url 'cliente_create' %}" class="btn btn-success mb-4" style="font-weight: 600;">
-            <i class="fas fa-user-plus"></i> Cadastrar Cliente
-        </a>
-
-        <a href="{% url 'cliente_list' %}" class="btn btn-primary mb-3 ms-2" style="font-weight: 600;">
-            <i class="fas fa-users"></i> Meus Clientes
-        </a>
 
         <section class="dashboard-cards">
-            <div class="card edit-agenda">
+
+
+            <!-- Modal de editar agendamento -->
+            <div id="modal-editar" class="modal-backdrop" style="display:none;">
+            <div class="modal-window" onclick="event.stopPropagation();">
+                <button type="button" class="modal-fechar" onclick="fecharModalEditar()">&times;</button>
+                <h3>Editar Agendamento</h3>
+                <form method="post" id="form-editar" action="{% url 'editar_agendamento' %}">
+                {% csrf_token %}
+                <!-- Seleciona agendamento -->
+                <label for="agendamento-editar-select">Escolha o agendamento:</label>
+                <select name="agendamento_id" id="agendamento-editar-select" required>
+                    <option value="" disabled selected>Selecione...</option>
+                    {% for ag in agendamentos_confirmados %}
+                    <option value="{{ ag.id }}">
+                        {{ ag.cliente.nome }} — {{ ag.dia|date:"d/m/Y" }} {{ ag.horario|time:"H:i" }}
+                    </option>
+                    {% endfor %}
+                </select>
+
+                <!-- Novo cliente -->
+                <label for="novo-cliente">Cliente:</label>
+                <select name="cliente_id" id="novo-cliente" required>
+                    <option value="" disabled selected>Selecione o cliente...</option>
+                    {% for cliente in clientes %}
+                    <option value="{{ cliente.id }}">{{ cliente.nome }}</option>
+                    {% endfor %}
+                </select>
+
+                <!-- Nova data -->
+                <label for="nova-data">Data:</label>
+                <input type="date" name="nova_data" id="nova-data" required>
+
+                <!-- Novo horário -->
+                <label for="novo-horario">Horário:</label>
+                <input type="time" name="novo_horario" id="novo-horario" required>
+
+                <div class="modal-btns" style="margin-top:18px;">
+                    <button type="button" onclick="fecharModalEditar()">Fechar</button>
+                    <button type="submit" class="btn-editar">Salvar Alterações</button>
+                </div>
+                </form>
+            </div>
+            </div>
+            <div class="card edit-agenda" onclick="abrirModalEditar()">
                 <div class="card-icon"><i class="fas fa-clipboard-list"></i></div>
                 <h2 class="card-title">EDITAR MINHA AGENDA</h2>
                 <p class="card-description">Edite sua agenda conforme sua disponibilidade.</p>
@@ -401,26 +438,26 @@
 
             <!-- Modal de cancelamento -->
             <div id="modal-cancelar" class="modal-backdrop" style="display:none;">
-            <div class="modal-window" onclick="event.stopPropagation();">
-                <button type="button" class="modal-fechar" onclick="fecharModal()">&times;</button>
-                <h3>Cancelar Agendamento</h3>
-                <form method="post" id="form-cancelar" action="{% url 'cancelar_agendamento' %}">
-                {% csrf_token %}
-                <label for="agendamento-select">Escolha o agendamento:</label>
-                <select name="agendamento_id" id="agendamento-select" required>
-                    <option value="" disabled selected>Selecione...</option>
-                    {% for ag in agendamentos_confirmados %}
-                    <option value="{{ ag.id }}">
-                        {{ ag.cliente.nome }} — {{ ag.dia|date:"d/m/Y" }} {{ ag.horario|time:"H:i" }}
-                    </option>
-                    {% endfor %}
-                </select>
-                <div class="modal-btns">
-                    <button type="button" onclick="fecharModal()">Fechar</button>
-                    <button type="submit" class="btn-cancelar">Cancelar Agendamento</button>
+                <div class="modal-window" onclick="event.stopPropagation();">
+                    <button type="button" class="modal-fechar" onclick="fecharModal()">&times;</button>
+                    <h3>Cancelar Agendamento</h3>
+                    <form method="post" id="form-cancelar" action="{% url 'cancelar_agendamento' %}">
+                        {% csrf_token %}
+                        <label for="agendamento-select">Escolha o agendamento:</label>
+                            <select name="agendamento_id" id="agendamento-select" required>
+                                <option value="" disabled selected>Selecione...</option>
+                                    {% for ag in agendamentos_confirmados %}
+                                        <option value="{{ ag.id }}">
+                                            {{ ag.cliente.nome }} — {{ ag.dia|date:"d/m/Y" }} {{ ag.horario|time:"H:i" }}
+                                        </option>
+                                    {% endfor %}
+                            </select>
+                        <div class="modal-btns">
+                            <button type="button" onclick="fecharModal()">Fechar</button>
+                            <button type="submit" class="btn-cancelar">Cancelar Agendamento</button>
+                        </div>
+                    </form>
                 </div>
-                </form>
-            </div>
             </div>
             <div class="card access-agenda">
                 <a href="{% url 'agendamento_list' %}" style="text-decoration: none; color: inherit;">
@@ -429,6 +466,14 @@
                     <p class="card-description">Confira todos os seus agendamentos até o momento.</p>
                 </a>
             </div>
+
+            <a href="{% url 'cliente_create' %}" class="btn btn-success mb-4" style="font-weight: 600;">
+                <i class="fas fa-user-plus"></i> Cadastrar Cliente
+            </a>
+
+            <a href="{% url 'cliente_list' %}" class="btn btn-primary mb-3 ms-2" style="font-weight: 600;">
+                <i class="fas fa-users"></i> Meus Clientes
+            </a>
         </section>
 
         <section class="recent-activity">
@@ -482,5 +527,6 @@
         </div>
     </footer>
      <script src="{% static 'js/cancel.js' %}"></script>
+     <script src="{% static 'js/edit.js' %}"></script>
 </body>
 </html>
