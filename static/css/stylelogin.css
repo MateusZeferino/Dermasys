@@ -92,6 +92,7 @@ body {
     color: var(--cor-branca);
 }
 
+
 .login-forms input {
     flex-grow: 1;
     background: none;
@@ -209,4 +210,46 @@ body {
 
 .registro:hover {
     background-color: #0056b3;
+}
+
+
+input:-webkit-autofill,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:active {
+    font-family: 'Lato', sans-serif;
+    background-color: transparent !important;
+    -webkit-box-shadow: inset !important;
+    color: var(--cor-preta) !important;
+    -webkit-text-fill-color: var(--cor-preta) !important;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+input[name="email"] {
+    background-image: url('../assets/icons/perfil.svg');
+    background-repeat: no-repeat;
+    background-position: left 8px center;
+    padding-left: 34px;
+} 
+
+input[name="senha"]{
+    background-image: url('../assets/icons/trancar.svg');
+    background-repeat: no-repeat;
+    background-position: left 8px center;
+    padding-left: 34px;
+}
+
+ul.messages {
+    margin: 16px 0;
+    padding: 0;
+    list-style: none;
+}
+ul.messages li {
+    background: #ffe3e3;
+    color: #b00020;
+    padding: 10px 12px;
+    margin-bottom: 6px;
+    border-radius: 4px;
+    font-size: 15px;
+    font-weight: 600;
 }

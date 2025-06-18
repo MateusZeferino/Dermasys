@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Perfil - DermaSys</title>
+    <link rel="stylesheet" href="{% static 'css/editar_perfil.css' %}">
+</head>
+<body>
+    <div class="editar-perfil-container">
+        <h2>Editar Perfil</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <a href="{% url 'alterar_senha' %}" class="cancelar-link">Alterar senha</a>
+
+            <button type="submit">Salvar Alterações</button>
+        </form>
+        <a href="{% url 'dashboard' %}" class="cancelar-link">Cancelar</a>
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+</body>
+</html>

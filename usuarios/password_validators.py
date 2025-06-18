@@ -16,3 +16,6 @@ class SenhaForteValidator:
                 _("A sua senha não cumpre alguns dos requisitos"),
                 code='password_not_strong',
             )
+
+    def get_help_text(self):
+        return "A senha deve conter pelo menos 8 caracteres, letras maiúsculas, minúsculas e números."

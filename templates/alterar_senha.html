@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Alterar Senha</title>
+    <link rel="stylesheet" href="{% static 'css/alterar_senha.css' %}">
+</head>
+<body>
+    <div class="alterar-senha-container">
+        <h2>Alterar Senha</h2>
+        <form method="post" autocomplete="off">
+            {% csrf_token %}
+            <label for="senha_atual">Senha atual</label>
+            <input type="password" name="senha_atual" id="senha_atual" required autocomplete="current-password">
+
+            <label for="nova_senha">Nova senha</label>
+            <input type="password" name="nova_senha" id="nova_senha" required autocomplete="new-password">
+
+            <label for="confirmar_senha">Confirmar nova senha</label>
+            <input type="password" name="confirmar_senha" id="confirmar_senha" required autocomplete="new-password">
+
+            <button type="submit">Salvar nova senha</button>
+        </form>
+        <a href="{% url 'editar_perfil' %}" class="cancelar-link">Cancelar</a>
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+</body>
+</html>

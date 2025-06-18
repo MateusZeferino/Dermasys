@@ -9,9 +9,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <title>Tatuagem</title>
-    <link rel="stylesheet" href="{% static 'css/stylelogin.css'%}?=v1">
     <link href="https://fonts.googleapis.com/css2?family=Karantina:wght@300;400;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Special+Gothic+Condensed+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/stylelogin.css'%}?=v1">
 </head>
 <body>
     <div class="container">
@@ -21,11 +21,20 @@
         <div class="login"> 
             <form method="POST" id="form-login"> {% csrf_token %%} 
                 <div class="login-forms">
-                    <input type="text" placeholder="Seu E-mail cadastrado" style="background-image: url('../static/assets/icons/perfil.svg'); background-repeat: no-repeat; background-position: left; padding-left: 30px;" name="email" required>
+                    <input class="email-input" type="text" placeholder="Seu E-mail cadastrado"  name="email" required>
                 </div>
                 <div class="login-forms">
-                    <input type="password" placeholder="Senha" style="background-image: url('../static/assets/icons/trancar.svg'); background-repeat: no-repeat; background-position: left; padding-left: 30px;" name="senha" required>
+                    <input class="senha-input" type="password" placeholder="Senha"  name="senha" required>
                 </div>
+                
+                {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                            <li>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
 
                 <div class="opcoes">
                     <label>
