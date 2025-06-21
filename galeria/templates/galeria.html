@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/galeria.css' %}">
+    <title>Galeria de Tatuagens</title>
+</head>
+<body>
+    <!-- Barra de Navegação -->
+    <nav class="navbar">
+        <span class="navbar-title">Galeria de Imagens</span>
+        <!-- Botão de voltar para o dashboard -->
+        <a href="{% url 'dashboard' %}" class="voltar-btn">← Voltar</a>
+    </nav>
+
+    <!-- Formulário de Pesquisa -->
+    <div class="search-container">
+        <form method="get" action="{% url 'galeria' %}">
+            <input type="text" name="query" placeholder="Pesquise por tatuagens" value="{{ request.GET.query }}">
+            <button type="submit">Buscar</button>
+        </form>
+    </div>
+
+    <!-- Galeria de Imagens -->
+    <div class="galeria">
+        {% for imagem in imagens %}
+            <div class="imagem">
+                <img src="{{ imagem }}" alt="Tatuagem">
+            </div>
+        {% empty %}
+            <p>Não foram encontradas imagens.</p>
+        {% endfor %}
+    </div>
+</body>
+</html>
