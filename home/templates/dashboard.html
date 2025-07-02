@@ -443,16 +443,21 @@
                 <div class="modal-window" onclick="event.stopPropagation();">
                     <button type="button" class="modal-fechar" onclick="fecharModal()">&times;</button>
                     <h3>Cancelar Agendamento</h3>
+
                     <form method="post" id="form-cancelar" action="{% url 'cancelar_agendamento' %}">
                         {% csrf_token %}
+
+                    <label for="cliente-cancelar-select">Escolha o cliente:</label>
+                    <select id="cliente-cancelar-select" style="width: 100%; margin-bottom: 10px; padding: 6px; border-radius: 4px;">
+                        <option value="">Selecione o cliente</option>
+                        {% for cliente in clientes %}
+                            <option value="{{ cliente.id }}">{{ cliente.nome }}</option>
+                        {% endfor %}
+                    </select>
+
                         <label for="agendamento-select">Escolha o agendamento:</label>
                             <select name="agendamento_id" id="agendamento-select" required>
-                                <option value="" disabled selected>Selecione...</option>
-                                    {% for ag in agendamentos_confirmados %}
-                                        <option value="{{ ag.id }}">
-                                            {{ ag.cliente.nome }} — {{ ag.dia|date:"d/m/Y" }} {{ ag.horario|time:"H:i" }}
-                                        </option>
-                                    {% endfor %}
+                                <option value="">Selecione um cliente</option>
                             </select>
                         <div class="modal-btns">
                             <button type="button" onclick="fecharModal()">Fechar</button>
@@ -469,16 +474,17 @@
                 </a>
             </div>
 
-            <a href="{% url 'cliente_create' %}" class="btn btn-success mb-4" style="font-weight: 600;">
+        </section>
+        <div style="margin: 28px 0 0 0; display: flex; gap: 12px;">
+            <a href="{% url 'cliente_create' %}" class="btn btn-success mb-4">
                 <i class="fas fa-user-plus"></i> Cadastrar Cliente
             </a>
-
-            <a href="{% url 'cliente_list' %}" class="btn btn-primary mb-3 ms-2" style="font-weight: 600;">
+            <a href="{% url 'cliente_list' %}" class="btn btn-primary mb-3 ms-2">
                 <i class="fas fa-users"></i> Meus Clientes
             </a>
-        </section>
+        </div>
 
-        <section class="recent-activity">
+        {% comment %} <section class="recent-activity">
             <h2 class="section-title">ATIVIDADE RECENTE</h2>
 
             <div class="activity-list">
@@ -515,7 +521,7 @@
                     <span class="activity-time">3 dias atrás</span>
                 </div>
             </div>
-        </section>
+        </section> {% endcomment %}
     </main>
 
     <footer class="footer">
@@ -530,5 +536,20 @@
     </footer>
      <script src="{% static 'js/cancel.js' %}"></script>
      <script src="{% static 'js/edit.js' %}"></script>
+     <script> 
+        // Array com todos os agendamentos confirmados e os dados necessários
+  const agendamentos = [
+    {% for ag in agendamentos_confirmados %}
+      {
+        id: "{{ ag.id }}",
+        cliente_id: "{{ ag.cliente.id }}",
+        cliente_nome: "{{ ag.cliente.nome|escapejs }}",
+        dia: "{{ ag.dia|date:'d/m/Y' }}",
+        horario: "{{ ag.horario|time:'H:i' }}"
+      }{% if not forloop.last %},{% endif %}
+    {% endfor %}
+    ];
+
+     </script>
 </body>
 </html>

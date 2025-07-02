@@ -30,6 +30,11 @@ form {
     flex-direction: column;
 }
 
+form p {
+    display: flex;
+    flex-direction: column;
+}
+
 form label {
     margin-bottom: 6px;
     font-weight: 600;

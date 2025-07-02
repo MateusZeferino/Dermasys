@@ -174,6 +174,31 @@
     width: 15%;
 }
 
+.badge{
+    width: 83px;
+}
+
+.status-badge {
+  display: flex;
+  align-items: center;
+  justify-content:space-evenly;
+  gap: 8px;
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.dot-confirmado {
+  background: #00c853; /* Verde */
+}
+
+.dot-cancelado {
+  background: #c62828; /* Vermelho */
+}
 
         .trow th{
             margin-right: 60px;
@@ -196,7 +221,7 @@
                 align-items: stretch;
                 gap: 8px;
             }
-        }
+    
     </style>
 </head>
 <body>
@@ -246,6 +271,7 @@
             <table class="table table-striped">
                 <thead>
                     <tr class="trow">
+                        <th>Contagem</th>
                         <th>Cliente</th>
                         <th>Data</th>
                         <th>Horário</th>
@@ -254,16 +280,20 @@
                 </thead>
                 <tbody>
                 {% for ag in agendamentos %}
-                    <tr>
+                    <tr class="{% if not ag.status %}cancelado {% else %} confirmado{% endif %}">
+                        <td>{{forloop.counter}}</td>
                         <td>{{ ag.cliente.nome }}</td>
                         <td>{{ ag.dia|date:"d/m/Y" }}</td>
                         <td>{{ ag.horario|time:"H:i" }}</td>
                         <td>
-                            {% if ag.status %}
+                            <span class="status-badge">
+                                {% if ag.status %}
                                 <span class="badge bg-success">Confirmado</span>
-                            {% else %}
+                                {% else %}
                                 <span class="badge bg-danger">Cancelado</span>
-                            {% endif %}
+                                {% endif %}
+                                <span class="status-dot {% if ag.status %}dot-confirmado{% else %}dot-cancelado{% endif %}"></span>
+                            </span>
                         </td>
                     </tr>
                 {% endfor %}
